@@ -1,0 +1,101 @@
+{
+    "type": "object",
+    "properties": {
+        "MaxResults": {
+            "required": false,
+            "type": "string"
+        },
+        "NextToken": {
+            "required": false,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "CreationTimeAfter": {
+                    "description": "A filter that returns only lifecycle configurations that were created after the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "CreationTimeBefore": {
+                    "description": "A filter that returns only lifecycle configurations that were created before the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "LastModifiedTimeAfter": {
+                    "description": "A filter that returns only lifecycle configurations that were modified after the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "LastModifiedTimeBefore": {
+                    "description": "A filter that returns only lifecycle configurations that were modified before the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "MaxResults": {
+                    "description": "The maximum number of lifecycle configurations to return in the response.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "NameContains": {
+                    "description": "A string in the lifecycle configuration name. This filter returns only lifecycle configurations whose name contains the specified string.",
+                    "maxLength": 63,
+                    "pattern": "[a-zA-Z0-9-]+",
+                    "type": "string"
+                },
+                "NextToken": {
+                    "description": "If the result of a <code>ListNotebookInstanceLifecycleConfigs</code> request was truncated, the response includes a <code>NextToken</code>. To get the next set of lifecycle configurations, use the token in the next request.",
+                    "maxLength": 8192,
+                    "pattern": ".*",
+                    "type": "string"
+                },
+                "SortBy": {
+                    "description": "Sorts the list of results. The default is <code>CreationTime</code>.",
+                    "enum": [
+                        "Name",
+                        "CreationTime",
+                        "LastModifiedTime"
+                    ],
+                    "type": "string"
+                },
+                "SortOrder": {
+                    "description": "The sort order for results.",
+                    "enum": [
+                        "Ascending",
+                        "Descending"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

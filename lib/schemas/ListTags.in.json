@@ -1,0 +1,66 @@
+{
+    "type": "object",
+    "properties": {
+        "MaxResults": {
+            "required": false,
+            "type": "string"
+        },
+        "NextToken": {
+            "required": false,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "MaxResults": {
+                    "description": "Maximum number of tags to return.",
+                    "minimum": 50,
+                    "type": "integer"
+                },
+                "NextToken": {
+                    "description": " If the response to the previous <code>ListTags</code> request is truncated, Amazon SageMaker returns this token. To retrieve the next set of tags, use it in the subsequent request. ",
+                    "maxLength": 8192,
+                    "pattern": ".*",
+                    "type": "string"
+                },
+                "ResourceArn": {
+                    "description": "The Amazon Resource Name (ARN) of the resource whose tags you want to retrieve.",
+                    "maxLength": 256,
+                    "pattern": "arn:.*",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ResourceArn"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

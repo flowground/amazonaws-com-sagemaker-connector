@@ -1,0 +1,289 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "BatchStrategy": {
+                    "description": "<p>Specifies the number of records to include in a mini-batch for an HTTP inference request. A <i>record</i> <i/> is a single unit of input data that inference can be made on. For example, a single line in a CSV file is a record. </p> <p>To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>, <code>RecordIO</code>, or <code>TFRecord</code>.</p> <p>To use only one record when making an HTTP invocation request to a container, set <code>BatchStrategy</code> to <code>SingleRecord</code> and <code>SplitType</code> to <code>Line</code>.</p> <p>To fit as many records in a mini-batch as can fit within the <code>MaxPayloadInMB</code> limit, set <code>BatchStrategy</code> to <code>MultiRecord</code> and <code>SplitType</code> to <code>Line</code>.</p>",
+                    "enum": [
+                        "MultiRecord",
+                        "SingleRecord"
+                    ],
+                    "type": "string"
+                },
+                "Environment": {
+                    "description": "The environment variables to set in the Docker container. We support up to 16 key and values entries in the map.",
+                    "items": {
+                        "properties": {
+                            "key": {
+                                "maxLength": 1024,
+                                "pattern": "[a-zA-Z_][a-zA-Z0-9_]*",
+                                "type": "string"
+                            },
+                            "value": {
+                                "maxLength": 10240,
+                                "pattern": "[\\S\\s]*",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "maxItems": 16,
+                    "type": "array"
+                },
+                "MaxConcurrentTransforms": {
+                    "description": "The maximum number of parallel requests that can be sent to each instance in a transform job. The default value is <code>1</code>. To allow Amazon SageMaker to determine the appropriate number for <code>MaxConcurrentTransforms</code>, set the value to <code>0</code>.",
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "MaxPayloadInMB": {
+                    "description": "<p>The maximum allowed size of the payload, in MB. A <i>payload</i> is the data portion of a record (without metadata). The value in <code>MaxPayloadInMB</code> must be greater than, or equal to, the size of a single record. To estimate the size of a record in MB, divide the size of your dataset by the number of records. To ensure that the records fit within the maximum payload size, we recommend using a slightly larger value. The default value is <code>6</code> MB. </p> <p>For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding, set the value to <code>0</code>. This feature works only in supported algorithms. Currently, Amazon SageMaker built-in algorithms do not support HTTP chunked encoding.</p>",
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "ModelName": {
+                    "description": "The name of the model that you want to use for the transform job. <code>ModelName</code> must be the name of an existing Amazon SageMaker model within an AWS Region in an AWS account.",
+                    "maxLength": 63,
+                    "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                    "type": "string"
+                },
+                "Tags": {
+                    "description": "(Optional) An array of key-value pairs. For more information, see <a href=\"https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what\">Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.",
+                    "items": {
+                        "description": "Describes a tag. ",
+                        "properties": {
+                            "Key": {
+                                "description": "The tag key.",
+                                "maxLength": 128,
+                                "minLength": 1,
+                                "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "The tag value.",
+                                "maxLength": 256,
+                                "minLength": 0,
+                                "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "Key",
+                            "Value"
+                        ],
+                        "type": "object"
+                    },
+                    "maxItems": 50,
+                    "minItems": 0,
+                    "type": "array"
+                },
+                "TransformInput": {
+                    "description": "Describes the input source and the way the transform job consumes it.",
+                    "properties": {
+                        "CompressionType": {
+                            "description": "If your transform data is compressed, specify the compression type. Amazon SageMaker automatically decompresses the data for the transform job accordingly. The default value is <code>None</code>.",
+                            "enum": [
+                                "None",
+                                "Gzip"
+                            ],
+                            "type": "string"
+                        },
+                        "ContentType": {
+                            "description": "The multipurpose internet mail extension (MIME) type of the data. Amazon SageMaker uses the MIME type with each http call to transfer data to the transform job.",
+                            "maxLength": 256,
+                            "pattern": ".*",
+                            "type": "string"
+                        },
+                        "DataSource": {
+                            "description": "Describes the location of the channel data, which is, the S3 location of the input data that the model can consume.",
+                            "properties": {
+                                "S3DataSource": {
+                                    "description": "The S3 location of the data source that is associated with a channel.",
+                                    "properties": {
+                                        "S3DataType": {
+                                            "description": "<p>If you choose <code>S3Prefix</code>, <code>S3Uri</code> identifies a key name prefix. Amazon SageMaker uses all objects with the specified key name prefix for batch transform. </p> <p>If you choose <code>ManifestFile</code>, <code>S3Uri</code> identifies an object that is a manifest file containing a list of object keys that you want Amazon SageMaker to use for batch transform. </p>",
+                                            "enum": [
+                                                "ManifestFile",
+                                                "S3Prefix",
+                                                "AugmentedManifestFile"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "S3Uri": {
+                                            "description": "<p>Depending on the value specified for the <code>S3DataType</code>, identifies either a key name prefix or a manifest. For example:</p> <ul> <li> <p> A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>. </p> </li> <li> <p> A manifest might look like this: <code>s3://bucketname/example.manifest</code> </p> <p> The manifest is an S3 object which is a JSON file with the following format: </p> <p> <code>[</code> </p> <p> <code> {\"prefix\": \"s3://customer_bucket/some/prefix/\"},</code> </p> <p> <code> \"relative/path/to/custdata-1\",</code> </p> <p> <code> \"relative/path/custdata-2\",</code> </p> <p> <code> ...</code> </p> <p> <code> ]</code> </p> <p> The preceding JSON matches the following <code>S3Uris</code>: </p> <p> <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code> </p> <p> <code>s3://customer_bucket/some/prefix/relative/path/custdata-1</code> </p> <p> <code>...</code> </p> <p> The complete set of <code>S3Uris</code> in this manifest constitutes the input data for the channel for this datasource. The object that each <code>S3Uris</code> points to must be readable by the IAM role that Amazon SageMaker uses to perform tasks on your behalf.</p> </li> </ul>",
+                                            "maxLength": 1024,
+                                            "pattern": "^(https|s3)://([^/]+)/?(.*)$",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "S3DataType",
+                                        "S3Uri"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "S3DataSource"
+                            ],
+                            "type": "object"
+                        },
+                        "SplitType": {
+                            "description": "<p>The method to use to split the transform job's data files into smaller batches. Splitting is necessary when the total size of each object is too large to fit in a single request. You can also use data splitting to improve performance by processing multiple concurrent mini-batches. The default value for <code>SplitType</code> is <code>None</code>, which indicates that input data files are not split, and request payloads contain the entire contents of an input object. Set the value of this parameter to <code>Line</code> to split records on a newline character boundary. <code>SplitType</code> also supports a number of record-oriented binary data formats.</p> <p>When splitting is enabled, the size of a mini-batch depends on the values of the <code>BatchStrategy</code> and <code>MaxPayloadInMB</code> parameters. When the value of <code>BatchStrategy</code> is <code>MultiRecord</code>, Amazon SageMaker sends the maximum number of records in each request, up to the <code>MaxPayloadInMB</code> limit. If the value of <code>BatchStrategy</code> is <code>SingleRecord</code>, Amazon SageMaker sends individual records in each request.</p> <note> <p>Some data formats represent a record as a binary payload wrapped with extra padding bytes. When splitting is applied to a binary data format, padding is removed if the value of <code>BatchStrategy</code> is set to <code>SingleRecord</code>. Padding is not removed if the value of <code>BatchStrategy</code> is set to <code>MultiRecord</code>.</p> <p>For more information about the RecordIO, see <a href=\"http://mxnet.io/architecture/note_data_loading.html#data-format\">Data Format</a> in the MXNet documentation. For more information about the TFRecord, see <a href=\"https://www.tensorflow.org/guide/datasets#consuming_tfrecord_data\">Consuming TFRecord data</a> in the TensorFlow documentation.</p> </note>",
+                            "enum": [
+                                "None",
+                                "Line",
+                                "RecordIO",
+                                "TFRecord"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "DataSource"
+                    ],
+                    "type": "object"
+                },
+                "TransformJobName": {
+                    "description": "The name of the transform job. The name must be unique within an AWS Region in an AWS account. ",
+                    "maxLength": 63,
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                    "type": "string"
+                },
+                "TransformOutput": {
+                    "description": "Describes the results of the transform job.",
+                    "properties": {
+                        "Accept": {
+                            "description": "The MIME type used to specify the output data. Amazon SageMaker uses the MIME type with each http call to transfer data from the transform job.",
+                            "maxLength": 256,
+                            "pattern": ".*",
+                            "type": "string"
+                        },
+                        "AssembleWith": {
+                            "description": "Defines how to assemble the results of the transform job as a single S3 object. Choose a format that is most convenient to you. To concatenate the results in binary format, specify <code>None</code>. To add a newline character at the end of every transformed record, specify <code>Line</code>.",
+                            "enum": [
+                                "None",
+                                "Line"
+                            ],
+                            "type": "string"
+                        },
+                        "KmsKeyId": {
+                            "description": "<p>The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt the model artifacts at rest using Amazon S3 server-side encryption. The <code>KmsKeyId</code> can be any of the following formats: </p> <ul> <li> <p>// KMS Key ID</p> <p> <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>// Amazon Resource Name (ARN) of a KMS Key</p> <p> <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>// KMS Key Alias</p> <p> <code>\"alias/ExampleAlias\"</code> </p> </li> <li> <p>// Amazon Resource Name (ARN) of a KMS Key Alias</p> <p> <code>\"arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias\"</code> </p> </li> </ul> <p>If you don't provide a KMS key ID, Amazon SageMaker uses the default KMS key for Amazon S3 for your role's account. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html\">KMS-Managed Encryption Keys</a> in the <i>Amazon Simple Storage Service Developer Guide.</i> </p> <p>The KMS key policy must grant permission to the IAM role that you specify in your <code>CreateTramsformJob</code> request. For more information, see <a href=\"http://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html\">Using Key Policies in AWS KMS</a> in the <i>AWS Key Management Service Developer Guide</i>.</p>",
+                            "maxLength": 2048,
+                            "pattern": ".*",
+                            "type": "string"
+                        },
+                        "S3OutputPath": {
+                            "description": "<p>The Amazon S3 path where you want Amazon SageMaker to store the results of the transform job. For example, <code>s3://bucket-name/key-name-prefix</code>.</p> <p>For every S3 object used as input for the transform job, batch transform stores the transformed data with an .<code>out</code> suffix in a corresponding subfolder in the location in the output prefix. For example, for the input data stored at <code>s3://bucket-name/input-name-prefix/dataset01/data.csv</code>, batch transform stores the transformed data at <code>s3://bucket-name/output-name-prefix/input-name-prefix/data.csv.out</code>. Batch transform doesn't upload partially processed objects. For an input S3 object that contains multiple records, it creates an .<code>out</code> file only if the transform job succeeds on the entire file. When the input contains multiple S3 objects, the batch transform job processes the listed S3 objects and uploads only the output for successfully processed objects. If any object fails in the transform job batch transform marks the job as failed to prompt investigation.</p>",
+                            "maxLength": 1024,
+                            "pattern": "^(https|s3)://([^/]+)/?(.*)$",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "S3OutputPath"
+                    ],
+                    "type": "object"
+                },
+                "TransformResources": {
+                    "description": "Describes the resources, including ML instance types and ML instance count, to use for the transform job.",
+                    "properties": {
+                        "InstanceCount": {
+                            "description": "The number of ML compute instances to use in the transform job. For distributed transform, provide a value greater than 1. The default value is <code>1</code>.",
+                            "minimum": 1,
+                            "type": "integer"
+                        },
+                        "InstanceType": {
+                            "description": "The ML compute instance type for the transform job. For using built-in algorithms to transform moderately sized datasets, ml.m4.xlarge or <code>ml.m5.large</code> should suffice. There is no default value for <code>InstanceType</code>.",
+                            "enum": [
+                                "ml.m4.xlarge",
+                                "ml.m4.2xlarge",
+                                "ml.m4.4xlarge",
+                                "ml.m4.10xlarge",
+                                "ml.m4.16xlarge",
+                                "ml.c4.xlarge",
+                                "ml.c4.2xlarge",
+                                "ml.c4.4xlarge",
+                                "ml.c4.8xlarge",
+                                "ml.p2.xlarge",
+                                "ml.p2.8xlarge",
+                                "ml.p2.16xlarge",
+                                "ml.p3.2xlarge",
+                                "ml.p3.8xlarge",
+                                "ml.p3.16xlarge",
+                                "ml.c5.xlarge",
+                                "ml.c5.2xlarge",
+                                "ml.c5.4xlarge",
+                                "ml.c5.9xlarge",
+                                "ml.c5.18xlarge",
+                                "ml.m5.large",
+                                "ml.m5.xlarge",
+                                "ml.m5.2xlarge",
+                                "ml.m5.4xlarge",
+                                "ml.m5.12xlarge",
+                                "ml.m5.24xlarge"
+                            ],
+                            "type": "string"
+                        },
+                        "VolumeKmsKeyId": {
+                            "description": "<p>The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the batch transform job. The <code>VolumeKmsKeyId</code> can be any of the following formats:</p> <ul> <li> <p>// KMS Key ID</p> <p> <code>\"1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> <li> <p>// Amazon Resource Name (ARN) of a KMS Key</p> <p> <code>\"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\"</code> </p> </li> </ul>",
+                            "maxLength": 2048,
+                            "pattern": ".*",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "InstanceType",
+                        "InstanceCount"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "TransformJobName",
+                "ModelName",
+                "TransformInput",
+                "TransformOutput",
+                "TransformResources"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

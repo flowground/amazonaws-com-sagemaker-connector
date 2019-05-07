@@ -1,0 +1,147 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "CompilationJobName": {
+                    "description": "A name for the model compilation job. The name must be unique within the AWS Region and within your AWS account. ",
+                    "maxLength": 63,
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*$",
+                    "type": "string"
+                },
+                "InputConfig": {
+                    "description": "Provides information about the location of input model artifacts, the name and shape of the expected data inputs, and the framework in which the model was trained.",
+                    "properties": {
+                        "DataInputConfig": {
+                            "description": "<p>Specifies the name and shape of the expected data inputs for your trained model with a JSON dictionary form. The data inputs are <a>InputConfig$Framework</a> specific. </p> <ul> <li> <p> <code>TensorFlow</code>: You must specify the name and shape (NHWC format) of the expected data inputs using a dictionary format for your trained model. The dictionary formats required for the console and CLI are different.</p> <ul> <li> <p>Examples for one input:</p> <ul> <li> <p>If using the console, <code>{\"input\":[1,1024,1024,3]}</code> </p> </li> <li> <p>If using the CLI, <code>{\\\"input\\\":[1,1024,1024,3]}</code> </p> </li> </ul> </li> <li> <p>Examples for two inputs:</p> <ul> <li> <p>If using the console, <code>{\"data1\": [1,28,28,1], \"data2\":[1,28,28,1]}</code> </p> </li> <li> <p>If using the CLI, <code>{\\\"data1\\\": [1,28,28,1], \\\"data2\\\":[1,28,28,1]}</code> </p> </li> </ul> </li> </ul> </li> <li> <p> <code>MXNET/ONNX</code>: You must specify the name and shape (NCHW format) of the expected data inputs in order using a dictionary format for your trained model. The dictionary formats required for the console and CLI are different.</p> <ul> <li> <p>Examples for one input:</p> <ul> <li> <p>If using the console, <code>{\"data\":[1,3,1024,1024]}</code> </p> </li> <li> <p>If using the CLI, <code>{\\\"data\\\":[1,3,1024,1024]}</code> </p> </li> </ul> </li> <li> <p>Examples for two inputs:</p> <ul> <li> <p>If using the console, <code>{\"var1\": [1,1,28,28], \"var2\":[1,1,28,28]} </code> </p> </li> <li> <p>If using the CLI, <code>{\\\"var1\\\": [1,1,28,28], \\\"var2\\\":[1,1,28,28]}</code> </p> </li> </ul> </li> </ul> </li> <li> <p> <code>PyTorch</code>: You can either specify the name and shape (NCHW format) of expected data inputs in order using a dictionary format for your trained model or you can specify the shape only using a list format. The dictionary formats required for the console and CLI are different. The list formats for the console and CLI are the same.</p> <ul> <li> <p>Examples for one input in dictionary format:</p> <ul> <li> <p>If using the console, <code>{\"input0\":[1,3,224,224]}</code> </p> </li> <li> <p>If using the CLI, <code>{\\\"input0\\\":[1,3,224,224]}</code> </p> </li> </ul> </li> <li> <p>Example for one input in list format: <code>[[1,3,224,224]]</code> </p> </li> <li> <p>Examples for two inputs in dictionary format:</p> <ul> <li> <p>If using the console, <code>{\"input0\":[1,3,224,224], \"input1\":[1,3,224,224]}</code> </p> </li> <li> <p>If using the CLI, <code>{\\\"input0\\\":[1,3,224,224], \\\"input1\\\":[1,3,224,224]} </code> </p> </li> </ul> </li> <li> <p>Example for two inputs in list format: <code>[[1,3,224,224], [1,3,224,224]]</code> </p> </li> </ul> </li> <li> <p> <code>XGBOOST</code>: input data name and shape are not needed.</p> </li> </ul>",
+                            "maxLength": 1024,
+                            "minLength": 1,
+                            "pattern": "[\\S\\s]+",
+                            "type": "string"
+                        },
+                        "Framework": {
+                            "description": "Identifies the framework in which the model was trained. For example: TENSORFLOW.",
+                            "enum": [
+                                "TENSORFLOW",
+                                "MXNET",
+                                "ONNX",
+                                "PYTORCH",
+                                "XGBOOST"
+                            ],
+                            "type": "string"
+                        },
+                        "S3Uri": {
+                            "description": "The S3 path where the model artifacts, which result from model training, are stored. This path must point to a single gzip compressed tar archive (.tar.gz suffix).",
+                            "maxLength": 1024,
+                            "pattern": "^(https|s3)://([^/]+)/?(.*)$",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "S3Uri",
+                        "DataInputConfig",
+                        "Framework"
+                    ],
+                    "type": "object"
+                },
+                "OutputConfig": {
+                    "description": "Provides information about the output location for the compiled model and the target device the model runs on.",
+                    "properties": {
+                        "S3OutputLocation": {
+                            "description": "Identifies the S3 path where you want Amazon SageMaker to store the model artifacts. For example, s3://bucket-name/key-name-prefix.",
+                            "maxLength": 1024,
+                            "pattern": "^(https|s3)://([^/]+)/?(.*)$",
+                            "type": "string"
+                        },
+                        "TargetDevice": {
+                            "description": "Identifies the device that you want to run your model on after it has been compiled. For example: ml_c5.",
+                            "enum": [
+                                "ml_m4",
+                                "ml_m5",
+                                "ml_c4",
+                                "ml_c5",
+                                "ml_p2",
+                                "ml_p3",
+                                "jetson_tx1",
+                                "jetson_tx2",
+                                "rasp3b",
+                                "deeplens",
+                                "rk3399",
+                                "rk3288"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "S3OutputLocation",
+                        "TargetDevice"
+                    ],
+                    "type": "object"
+                },
+                "RoleArn": {
+                    "description": "<p>The Amazon Resource Name (ARN) of an IIAMAM role that enables Amazon SageMaker to perform tasks on your behalf. </p> <p>During model compilation, Amazon SageMaker needs your permission to:</p> <ul> <li> <p>Read input data from an S3 bucket</p> </li> <li> <p>Write model artifacts to an S3 bucket</p> </li> <li> <p>Write logs to Amazon CloudWatch Logs</p> </li> <li> <p>Publish metrics to Amazon CloudWatch</p> </li> </ul> <p>You grant permissions for all of these tasks to an IAM role. To pass this role to Amazon SageMaker, the caller of this API must have the <code>iam:PassRole</code> permission. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html\">Amazon SageMaker Roles.</a> </p>",
+                    "maxLength": 2048,
+                    "minLength": 20,
+                    "pattern": "^arn:aws[a-z\\-]*:iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+$",
+                    "type": "string"
+                },
+                "StoppingCondition": {
+                    "description": "The duration allowed for model compilation.",
+                    "properties": {
+                        "MaxRuntimeInSeconds": {
+                            "description": "The maximum length of time, in seconds, that the training job can run. If model training does not complete during this time, Amazon SageMaker ends the job. If value is not specified, default value is 1 day. Maximum value is 28 days.",
+                            "minimum": 1,
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "CompilationJobName",
+                "RoleArn",
+                "InputConfig",
+                "OutputConfig",
+                "StoppingCondition"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

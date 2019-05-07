@@ -1,0 +1,139 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "Description": {
+                    "description": "A description of the work team.",
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "pattern": ".+",
+                    "type": "string"
+                },
+                "MemberDefinitions": {
+                    "description": "<p>A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito user pool that makes up the work team. For more information, see <a href=\"http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html\">Amazon Cognito User Pools</a>.</p> <p>All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values.</p>",
+                    "items": {
+                        "description": "Defines the Amazon Cognito user group that is part of a work team.",
+                        "properties": {
+                            "CognitoMemberDefinition": {
+                                "description": "The Amazon Cognito user group that is part of the work team.",
+                                "properties": {
+                                    "ClientId": {
+                                        "description": "An identifier for an application client. You must create the app client ID using Amazon Cognito.",
+                                        "maxLength": 128,
+                                        "minLength": 1,
+                                        "pattern": "[\\w+]+",
+                                        "type": "string"
+                                    },
+                                    "UserGroup": {
+                                        "description": "An identifier for a user group.",
+                                        "maxLength": 128,
+                                        "minLength": 1,
+                                        "pattern": "[\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}]+",
+                                        "type": "string"
+                                    },
+                                    "UserPool": {
+                                        "description": "An identifier for a user pool. The user pool must be in the same region as the service that you are calling.",
+                                        "maxLength": 55,
+                                        "minLength": 1,
+                                        "pattern": "[\\w-]+_[0-9a-zA-Z]+",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "UserPool",
+                                    "UserGroup",
+                                    "ClientId"
+                                ],
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "maxItems": 10,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "Tags": {
+                    "description": "<p/>",
+                    "items": {
+                        "description": "Describes a tag. ",
+                        "properties": {
+                            "Key": {
+                                "description": "The tag key.",
+                                "maxLength": 128,
+                                "minLength": 1,
+                                "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "The tag value.",
+                                "maxLength": 256,
+                                "minLength": 0,
+                                "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "Key",
+                            "Value"
+                        ],
+                        "type": "object"
+                    },
+                    "maxItems": 50,
+                    "minItems": 0,
+                    "type": "array"
+                },
+                "WorkteamName": {
+                    "description": "The name of the work team. Use this name to identify the work team.",
+                    "maxLength": 63,
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "WorkteamName",
+                "MemberDefinitions",
+                "Description"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "type": "object",
+    "properties": {
+        "MaxResults": {
+            "required": false,
+            "type": "string"
+        },
+        "NextToken": {
+            "required": false,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "AdditionalCodeRepositoryEquals": {
+                    "description": "A filter that returns only notebook instances with associated with the specified git repository.",
+                    "maxLength": 1024,
+                    "minLength": 1,
+                    "pattern": "^https://([^/]+)/?(.*)$|^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                    "type": "string"
+                },
+                "CreationTimeAfter": {
+                    "description": "A filter that returns only notebook instances that were created after the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "CreationTimeBefore": {
+                    "description": "A filter that returns only notebook instances that were created before the specified time (timestamp). ",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "DefaultCodeRepositoryContains": {
+                    "description": "A string in the name or URL of a Git repository associated with this notebook instance. This filter returns only notebook instances associated with a git repository with a name that contains the specified string.",
+                    "maxLength": 1024,
+                    "pattern": "[a-zA-Z0-9-]+",
+                    "type": "string"
+                },
+                "LastModifiedTimeAfter": {
+                    "description": "A filter that returns only notebook instances that were modified after the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "LastModifiedTimeBefore": {
+                    "description": "A filter that returns only notebook instances that were modified before the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "MaxResults": {
+                    "description": "The maximum number of notebook instances to return.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "NameContains": {
+                    "description": "A string in the notebook instances' name. This filter returns only notebook instances whose name contains the specified string.",
+                    "maxLength": 63,
+                    "pattern": "[a-zA-Z0-9-]+",
+                    "type": "string"
+                },
+                "NextToken": {
+                    "description": "<p> If the previous call to the <code>ListNotebookInstances</code> is truncated, the response includes a <code>NextToken</code>. You can use this token in your subsequent <code>ListNotebookInstances</code> request to fetch the next set of notebook instances. </p> <note> <p>You might specify a filter or a sort order in your request. When response is truncated, you must use the same values for the filer and sort order in the next request. </p> </note>",
+                    "maxLength": 8192,
+                    "pattern": ".*",
+                    "type": "string"
+                },
+                "NotebookInstanceLifecycleConfigNameContains": {
+                    "description": "A string in the name of a notebook instances lifecycle configuration associated with this notebook instance. This filter returns only notebook instances associated with a lifecycle configuration with a name that contains the specified string.",
+                    "maxLength": 63,
+                    "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                    "type": "string"
+                },
+                "SortBy": {
+                    "description": "The field to sort results by. The default is <code>Name</code>.",
+                    "enum": [
+                        "Name",
+                        "CreationTime",
+                        "Status"
+                    ],
+                    "type": "string"
+                },
+                "SortOrder": {
+                    "description": "The sort order for results. ",
+                    "enum": [
+                        "Ascending",
+                        "Descending"
+                    ],
+                    "type": "string"
+                },
+                "StatusEquals": {
+                    "description": "A filter that returns only notebook instances with the specified status.",
+                    "enum": [
+                        "Pending",
+                        "InService",
+                        "Stopping",
+                        "Stopped",
+                        "Failed",
+                        "Deleting",
+                        "Updating"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

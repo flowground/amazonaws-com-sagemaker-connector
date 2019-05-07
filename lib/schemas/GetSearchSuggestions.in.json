@@ -1,0 +1,78 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "Resource": {
+                    "description": "The name of the Amazon SageMaker resource to Search for. The only valid <code>Resource</code> value is <code>TrainingJob</code>.",
+                    "enum": [
+                        "TrainingJob"
+                    ],
+                    "type": "string"
+                },
+                "SuggestionQuery": {
+                    "description": "Limits the property names that are included in the response.",
+                    "properties": {
+                        "PropertyNameQuery": {
+                            "description": "A type of <code>SuggestionQuery</code>. Defines a property name hint. Only property names that match the specified hint are included in the response.",
+                            "properties": {
+                                "PropertyNameHint": {
+                                    "description": "Text that is part of a property's name. The property names of hyperparameter, metric, and tag key names that begin with the specified text in the <code>PropertyNameHint</code>.",
+                                    "maxLength": 100,
+                                    "minLength": 0,
+                                    "pattern": ".*",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "PropertyNameHint"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "Resource"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

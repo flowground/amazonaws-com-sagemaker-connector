@@ -1,0 +1,236 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "Containers": {
+                    "description": "Specifies the containers in the inference pipeline.",
+                    "items": {
+                        "description": "Describes the container, as part of model definition.",
+                        "properties": {
+                            "ContainerHostname": {
+                                "description": "This parameter is ignored.",
+                                "maxLength": 63,
+                                "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                                "type": "string"
+                            },
+                            "Environment": {
+                                "description": "The environment variables to set in the Docker container. Each key and value in the <code>Environment</code> string to string map can have length of up to 1024. We support up to 16 entries in the map. ",
+                                "items": {
+                                    "properties": {
+                                        "key": {
+                                            "maxLength": 1024,
+                                            "pattern": "[a-zA-Z_][a-zA-Z0-9_]*",
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "maxLength": 1024,
+                                            "pattern": "[\\S\\s]*",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "maxItems": 16,
+                                "type": "array"
+                            },
+                            "Image": {
+                                "description": "The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet Amazon SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html\">Using Your Own Algorithms with Amazon SageMaker</a> ",
+                                "maxLength": 255,
+                                "pattern": "[\\S]+",
+                                "type": "string"
+                            },
+                            "ModelDataUrl": {
+                                "description": "<p>The S3 path where the model artifacts, which result from model training, are stored. This path must point to a single gzip compressed tar archive (.tar.gz suffix). </p> <p>If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download model artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default. If you previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For more information, see <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html\">Activating and Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide</i>.</p>",
+                                "maxLength": 1024,
+                                "pattern": "^(https|s3)://([^/]+)/?(.*)$",
+                                "type": "string"
+                            },
+                            "ModelPackageName": {
+                                "description": "The name of the model package to use to create the model.",
+                                "maxLength": 170,
+                                "minLength": 1,
+                                "pattern": "(arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:[a-z\\-]*\\/)?([a-zA-Z0-9]([a-zA-Z0-9-]){0,62})(?<!-)$",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "maxItems": 5,
+                    "type": "array"
+                },
+                "EnableNetworkIsolation": {
+                    "description": "<p>Isolates the model container. No inbound or outbound network calls can be made to or from the model container.</p> <note> <p>The Semantic Segmentation built-in algorithm does not support network isolation.</p> </note>",
+                    "type": "boolean"
+                },
+                "ExecutionRoleArn": {
+                    "description": "<p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can assume to access model artifacts and docker image for deployment on ML compute instances or for batch transform jobs. Deploying on ML compute instances is part of model hosting. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html\">Amazon SageMaker Roles</a>. </p> <note> <p>To be able to pass this role to Amazon SageMaker, the caller of this API must have the <code>iam:PassRole</code> permission.</p> </note>",
+                    "maxLength": 2048,
+                    "minLength": 20,
+                    "pattern": "^arn:aws[a-z\\-]*:iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+$",
+                    "type": "string"
+                },
+                "ModelName": {
+                    "description": "The name of the new model.",
+                    "maxLength": 63,
+                    "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                    "type": "string"
+                },
+                "PrimaryContainer": {
+                    "description": "The location of the primary docker image containing inference code, associated artifacts, and custom environment map that the inference code uses when the model is deployed for predictions. ",
+                    "properties": {
+                        "ContainerHostname": {
+                            "description": "This parameter is ignored.",
+                            "maxLength": 63,
+                            "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                            "type": "string"
+                        },
+                        "Environment": {
+                            "description": "The environment variables to set in the Docker container. Each key and value in the <code>Environment</code> string to string map can have length of up to 1024. We support up to 16 entries in the map. ",
+                            "items": {
+                                "properties": {
+                                    "key": {
+                                        "maxLength": 1024,
+                                        "pattern": "[a-zA-Z_][a-zA-Z0-9_]*",
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "maxLength": 1024,
+                                        "pattern": "[\\S\\s]*",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "maxItems": 16,
+                            "type": "array"
+                        },
+                        "Image": {
+                            "description": "The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet Amazon SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html\">Using Your Own Algorithms with Amazon SageMaker</a> ",
+                            "maxLength": 255,
+                            "pattern": "[\\S]+",
+                            "type": "string"
+                        },
+                        "ModelDataUrl": {
+                            "description": "<p>The S3 path where the model artifacts, which result from model training, are stored. This path must point to a single gzip compressed tar archive (.tar.gz suffix). </p> <p>If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download model artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default. If you previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For more information, see <a href=\"http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html\">Activating and Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide</i>.</p>",
+                            "maxLength": 1024,
+                            "pattern": "^(https|s3)://([^/]+)/?(.*)$",
+                            "type": "string"
+                        },
+                        "ModelPackageName": {
+                            "description": "The name of the model package to use to create the model.",
+                            "maxLength": 170,
+                            "minLength": 1,
+                            "pattern": "(arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:[a-z\\-]*\\/)?([a-zA-Z0-9]([a-zA-Z0-9-]){0,62})(?<!-)$",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "Tags": {
+                    "description": "An array of key-value pairs. For more information, see <a href=\"https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what\">Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>. ",
+                    "items": {
+                        "description": "Describes a tag. ",
+                        "properties": {
+                            "Key": {
+                                "description": "The tag key.",
+                                "maxLength": 128,
+                                "minLength": 1,
+                                "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "The tag value.",
+                                "maxLength": 256,
+                                "minLength": 0,
+                                "pattern": "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "Key",
+                            "Value"
+                        ],
+                        "type": "object"
+                    },
+                    "maxItems": 50,
+                    "minItems": 0,
+                    "type": "array"
+                },
+                "VpcConfig": {
+                    "description": "A <a>VpcConfig</a> object that specifies the VPC that you want your model to connect to. Control access to and from your model container by configuring the VPC. <code>VpcConfig</code> is used in hosting services and in batch transform. For more information, see <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html\">Protect Endpoints by Using an Amazon Virtual Private Cloud</a> and <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html\">Protect Data in Batch Transform Jobs by Using an Amazon Virtual Private Cloud</a>.",
+                    "properties": {
+                        "SecurityGroupIds": {
+                            "description": "The VPC security group IDs, in the form sg-xxxxxxxx. Specify the security groups for the VPC that is specified in the <code>Subnets</code> field.",
+                            "items": {
+                                "maxLength": 32,
+                                "pattern": "[-0-9a-zA-Z]+",
+                                "type": "string"
+                            },
+                            "maxItems": 5,
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        "Subnets": {
+                            "description": "The ID of the subnets in the VPC to which you want to connect your training job or model. ",
+                            "items": {
+                                "maxLength": 32,
+                                "pattern": "[-0-9a-zA-Z]+",
+                                "type": "string"
+                            },
+                            "maxItems": 16,
+                            "minItems": 1,
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "SecurityGroupIds",
+                        "Subnets"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "ModelName",
+                "ExecutionRoleArn"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

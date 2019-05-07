@@ -1,0 +1,90 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "RoleArn": {
+                    "description": "The Amazon Resource Name (ARN) that has access to the S3 objects that are used by the template.",
+                    "maxLength": 2048,
+                    "minLength": 20,
+                    "pattern": "^arn:aws[a-z\\-]*:iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+$",
+                    "type": "string"
+                },
+                "Task": {
+                    "description": "A <code>RenderableTask</code> object containing a representative task to render.",
+                    "properties": {
+                        "Input": {
+                            "description": "A JSON object that contains values for the variables defined in the template. It is made available to the template under the substitution variable <code>task.input</code>. For example, if you define a variable <code>task.input.text</code> in your template, you can supply the variable in the JSON object as <code>\"text\": \"sample text\"</code>.",
+                            "maxLength": 128000,
+                            "minLength": 2,
+                            "pattern": "[\\S\\s]+",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "Input"
+                    ],
+                    "type": "object"
+                },
+                "UiTemplate": {
+                    "description": "A <code>Template</code> object containing the worker UI template to render.",
+                    "properties": {
+                        "Content": {
+                            "description": "The content of the Liquid template for the worker user interface.",
+                            "maxLength": 128000,
+                            "minLength": 1,
+                            "pattern": "[\\S\\s]+",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "Content"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "UiTemplate",
+                "Task",
+                "RoleArn"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

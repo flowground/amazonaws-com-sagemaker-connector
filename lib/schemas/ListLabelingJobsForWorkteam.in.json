@@ -1,0 +1,99 @@
+{
+    "type": "object",
+    "properties": {
+        "MaxResults": {
+            "required": false,
+            "type": "string"
+        },
+        "NextToken": {
+            "required": false,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "CreationTimeAfter": {
+                    "description": "A filter that returns only labeling jobs created after the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "CreationTimeBefore": {
+                    "description": "A filter that returns only labeling jobs created before the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "JobReferenceCodeContains": {
+                    "description": "A filter the limits jobs to only the ones whose job reference code contains the specified string.",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "pattern": ".+",
+                    "type": "string"
+                },
+                "MaxResults": {
+                    "description": "The maximum number of labeling jobs to return in each page of the response.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "NextToken": {
+                    "description": "If the result of the previous <code>ListLabelingJobsForWorkteam</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of labeling jobs, use the token in the next request.",
+                    "maxLength": 8192,
+                    "pattern": ".*",
+                    "type": "string"
+                },
+                "SortBy": {
+                    "description": "The field to sort results by. The default is <code>CreationTime</code>.",
+                    "enum": [
+                        "CreationTime"
+                    ],
+                    "type": "string"
+                },
+                "SortOrder": {
+                    "description": "The sort order for results. The default is <code>Ascending</code>.",
+                    "enum": [
+                        "Ascending",
+                        "Descending"
+                    ],
+                    "type": "string"
+                },
+                "WorkteamArn": {
+                    "description": "The Amazon Resource Name (ARN) of the work team for which you want to see labeling jobs for.",
+                    "maxLength": 256,
+                    "pattern": "arn:aws[a-z\\-]*:sagemaker:[a-z0-9\\-]*:[0-9]{12}:workteam/.*",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "WorkteamArn"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

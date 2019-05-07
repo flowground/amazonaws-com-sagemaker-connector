@@ -1,0 +1,90 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "CreationTimeAfter": {
+                    "description": "A filter that returns only model packages created after the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "CreationTimeBefore": {
+                    "description": "A filter that returns only model packages created before the specified time (timestamp).",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "MaxResults": {
+                    "description": "The maximum number of model packages to return in the response.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "NameContains": {
+                    "description": "A string in the model package name. This filter returns only model packages whose name contains the specified string.",
+                    "maxLength": 63,
+                    "pattern": "[a-zA-Z0-9\\-]+",
+                    "type": "string"
+                },
+                "NextToken": {
+                    "description": "If the response to a previous <code>ListModelPackages</code> request was truncated, the response includes a <code>NextToken</code>. To retrieve the next set of model packages, use the token in the next request.",
+                    "maxLength": 8192,
+                    "pattern": ".*",
+                    "type": "string"
+                },
+                "SortBy": {
+                    "description": "The parameter by which to sort the results. The default is <code>CreationTime</code>.",
+                    "enum": [
+                        "Name",
+                        "CreationTime"
+                    ],
+                    "type": "string"
+                },
+                "SortOrder": {
+                    "description": "The sort order for the results. The default is <code>Ascending</code>.",
+                    "enum": [
+                        "Ascending",
+                        "Descending"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

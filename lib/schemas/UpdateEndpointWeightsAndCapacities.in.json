@@ -1,0 +1,87 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "DesiredWeightsAndCapacities": {
+                    "description": "An object that provides new capacity and weight values for a variant.",
+                    "items": {
+                        "description": "Specifies weight and capacity values for a production variant.",
+                        "properties": {
+                            "DesiredInstanceCount": {
+                                "description": "The variant's capacity.",
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "DesiredWeight": {
+                                "description": "The variant's weight.",
+                                "format": "float",
+                                "minimum": 0,
+                                "type": "number"
+                            },
+                            "VariantName": {
+                                "description": "The name of the variant to update.",
+                                "maxLength": 63,
+                                "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "VariantName"
+                        ],
+                        "type": "object"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "EndpointName": {
+                    "description": "The name of an existing Amazon SageMaker endpoint.",
+                    "maxLength": 63,
+                    "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "EndpointName",
+                "DesiredWeightsAndCapacities"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
