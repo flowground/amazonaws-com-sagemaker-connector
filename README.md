@@ -1,11 +1,11 @@
-# ![LOGO](logo.png) Amazon SageMaker Service MSP Connector
+# ![LOGO](logo.png) Amazon SageMaker Service **flow**ground Connector
 
 ## Description
 
-A generated MSP connector for the Amazon SageMaker Service API (version 2017-07-24).
+A generated **flow**ground connector for the Amazon SageMaker Service API (version 2017-07-24).
 
 Generated from: https://api.apis.guru/v2/specs/amazonaws.com/sagemaker/2017-07-24/swagger.json<br/>
-Generated at: 2019-05-07T11:16:36+03:00
+Generated at: 2019-05-07T17:36:16+03:00
 
 ## API Description
 
@@ -994,7 +994,7 @@ Supported authorization schemes:
 
 ## License
 
-flowground :- Telekom iPaaS / amazonaws-com-sagemaker-connector<br/>
+**flow**ground :- Telekom iPaaS / amazonaws-com-sagemaker-connector<br/>
 Copyright © 2019, [Deutsche Telekom AG](https://www.telekom.de)<br/>
 contact: flowground@telekom.de
 
